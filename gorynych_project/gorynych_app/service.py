@@ -1,5 +1,5 @@
 import random
-
+from .models import Word
 
 consonant_letters = ["Б", "В", "Г", "Д", "Ж", "З", "Й",
                      "К", "Л", "М", "Н", "П", "Р", "С", "Т",
@@ -9,6 +9,10 @@ choosing_a_number = [0, 1, 2, 3]
 
 deck = random.sample(consonant_letters, 6) + random.sample(vowel_letters, 4)
 number = random.choice(choosing_a_number)
+
+
+def comp_words():
+    return [i.word for i in Word.objects.all()]
 
 
 class Words:
@@ -39,16 +43,13 @@ class Words:
         Words.players_word_list.append(w)
         return 'Слово прошло проверку'
 
-    # def words_of_comp(self):
-    #     for word in comp_words():
-    #         for letter in word.upper():
-    #             if letter not in self.deck:
-    #                 break
-    #         else:
-    #             self.comp_word_list.append(word.upper())
+    def words_of_comp(self):
+        for word in comp_words():
+            for letter in word.upper():
+                if letter not in self.deck:
+                    break
+            else:
+                self.comp_word_list.append(word.upper())
 
 
 game = Words(deck, number)
-
-if __name__ == '__main__':
-    pass
