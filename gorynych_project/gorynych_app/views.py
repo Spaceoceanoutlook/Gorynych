@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from .service import game
 
 
 def index(request):
-    return render(request, 'gorynych_app/index.html')
+    context = {'game': game}
+    return render(request, 'gorynych_app/index.html', context=context)

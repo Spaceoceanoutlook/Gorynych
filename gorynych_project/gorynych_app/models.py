@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Word(models.Model):
-    word = models.CharField(max_length=100, verbose_name='Слова')
+    word = models.CharField(max_length=99, verbose_name='Слова')
     objects = models.Manager()
 
     def __str__(self):
