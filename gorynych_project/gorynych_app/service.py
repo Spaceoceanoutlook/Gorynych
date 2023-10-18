@@ -20,6 +20,8 @@ class Words:
     comp_word_list = []
     final_comp_word_list = []
     temp = 0
+    gorynych_user = []
+    gorynych_comp = []
 
     def __init__(self, d: list, n: int):
         self.deck = d
@@ -62,7 +64,6 @@ class Words:
                     dict_of_letters_comp[letter] = 1
                 else:
                     dict_of_letters_comp[letter] += 1
-            print(dict_of_letters_comp)
             sum_letters = sum(dict_of_letters_comp.values())
             count_letters = len(dict_of_letters_comp)
             if self.number_comp == 0 and sum_letters > count_letters:
@@ -71,7 +72,8 @@ class Words:
                 continue
             else:
                 self.number_comp -= sum_letters - count_letters
-            print(self.number_comp)
+                if sum_letters - count_letters != 0:
+                    self.gorynych_comp.append(word)
             self.final_comp_word_list.append(word)
 
 
