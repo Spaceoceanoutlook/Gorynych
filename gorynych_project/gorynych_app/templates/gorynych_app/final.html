@@ -10,13 +10,20 @@
     <title>Горыныч</title>
 </head>
 <body>
+    <h2><a href="{% url 'index' %}">Играть еще</a></h2>
     <h1>{% for i in game.deck %}
         {{ i }}
+        {% empty %} Вы не составили ни одного слова
         {% endfor %}
     </h1>
     <h3>ВАШИ СЛОВА:
         {% for i in game.players_word_list %}
-        {{ i }}
+        {% if i in game.gorynych_user %}
+            <span style="color:green">{{ i }}</span>
+        {% else %}
+            {{ i }}
+        {% endif %}
+        {% empty %} Компьютер не составил ни одного слова
         {% endfor %}
     </h3>
     <h3>

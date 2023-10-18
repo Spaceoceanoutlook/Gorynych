@@ -42,11 +42,16 @@ class Words:
         if self.number_user == 0 and sum_letters > count_letters:
             return 'Горыныч без голов'
         if self.number_user < sum_letters - count_letters:
-            return 'Ваше слово превышает количество голов Горыныча'
+            return 'Для этого слова не хватает голов у Горыныча'
         else:
             self.number_user -= sum_letters - count_letters
+            if sum_letters - count_letters != 0:
+                self.gorynych_user.append(w)
             self.temp = sum_letters - count_letters
-        self.players_word_list.append(w)
+        if w not in self.players_word_list:
+            self.players_word_list.append(w)
+        else:
+            return 'Такое слово уже есть'
 
     def words_of_comp(self):
         for word in comp_words():
@@ -78,4 +83,3 @@ class Words:
 
 
 game = Words(deck, number)
-
