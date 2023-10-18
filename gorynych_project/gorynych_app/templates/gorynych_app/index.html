@@ -14,7 +14,7 @@
         {{ i }}
         {% endfor %}
     </h1>
-    <h2>ГОРЫНЫЧ: {{ game.number }}</h2>
+    <h2>ГОРЫНЫЧ: {{ game.number_user }}</h2>
     <form action="" method="post">{% csrf_token %}
         <button type="submit" name="add">ДОБАВИТЬ СЛОВО</button>
         <button type="submit" name="cancel">УБРАТЬ СЛОВО</button>
@@ -22,6 +22,14 @@
         <button type="submit" name="check">ЗАКОНЧИТЬ ИГРУ</button>
         <p><input type="text" name="word" autocomplete="off" autofocus></p>
     </form>
+    <h2>
+        {% for i in game.players_word_list %}
+        {{ i }}
+        {% endfor %}</h2>
+    <h3>{% if res %}
+        {{ res }}
+        {% endif %}
+    </h3>
 </body>
 </html>
 
