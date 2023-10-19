@@ -7,26 +7,23 @@ consonant_letters = ["Б", "В", "Г", "Д", "Ж", "З", "Й",
 vowel_letters = ["А", "Е", "Ё", "И", "О", "У", "Ы", "Э", "Ю", "Я"]
 choosing_a_number = [0, 1, 2, 3]
 
-deck = random.sample(consonant_letters, 8) + random.sample(vowel_letters, 5)
-number = random.choice(choosing_a_number)
-
 
 def comp_words():
     return [i.word for i in Word.objects.all()]
 
 
 class Words:
-    players_word_list = []
-    comp_word_list = []
-    final_comp_word_list = []
-    temp = 0
-    gorynych_user = []
-    gorynych_comp = []
-
-    def __init__(self, d: list, n: int):
-        self.deck = d
-        self.number_user = n
-        self.number_comp = n
+    def __init__(self):
+        self.deck = random.sample(consonant_letters, 8) + random.sample(vowel_letters, 5)
+        number = random.choice(choosing_a_number)
+        self.number_user = number
+        self.number_comp = number
+        self.players_word_list = []
+        self.comp_word_list = []
+        self.final_comp_word_list = []
+        self.temp = 0
+        self.gorynych_user = []
+        self.gorynych_comp = []
 
     def checking_for_all_letters(self, w: str):
         dict_of_letters = {}
@@ -80,6 +77,3 @@ class Words:
                 if sum_letters - count_letters != 0:
                     self.gorynych_comp.append(word)
             self.final_comp_word_list.append(word)
-
-
-game = Words(deck, number)

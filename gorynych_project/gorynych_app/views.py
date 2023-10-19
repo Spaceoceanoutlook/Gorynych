@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .service import game
+from django.shortcuts import render, redirect
+from .service import Words
 
 
 def index(request):
@@ -22,4 +22,19 @@ def index(request):
         game.words_of_comp()
         game.check_words_of_comp()
         return render(request, 'gorynych_app/final.html', context=context)
+    if request.method == 'POST' and 'end' in request.POST:
+        replace_game()
+        return redirect('index')
     return render(request, 'gorynych_app/index.html', context=context)
+
+
+def replace_game():
+    global game
+    del game
+    game = Words()
+
+
+game = Words()
+
+
+

@@ -10,6 +10,8 @@
     <title>Горыныч</title>
 </head>
 <body>
+    <form action="" method="post">{% csrf_token %}
+        <button type="submit" name="end">НАЧАТЬ ЗАНОВО</button></form>
     <h1>{% for i in game.deck %}
         {{ i }}
         {% endfor %}
