@@ -77,3 +77,10 @@ class Words:
                 if sum_letters - count_letters != 0:
                     self.gorynych_comp.append(word)
             self.final_comp_word_list.append(word)
+
+    def who_won(self):
+        if len(self.players_word_list) < len(self.final_comp_word_list):
+            return 'Вы проиграли'
+        if len(self.players_word_list) == len(self.final_comp_word_list):
+            return 'Ничья'
+        return 'Вы победили!'

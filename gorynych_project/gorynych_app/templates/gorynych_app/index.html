@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script>
+    function confirmAction(){
+      var confirmed = confirm("Начть новую игру?");
+      return confirmed;
+}
+    </script>
     <title>Горыныч</title>
 </head>
 <body>
@@ -14,23 +20,25 @@
         {{ i }}
         {% endfor %}
     </h1>
-    <h2>ГОРЫНЫЧ: {{ game.number_user }}</h2>
+    <p>ГОРЫНЫЧ: {{ game.number_user }}</p>
     <form action="" method="post">{% csrf_token %}
         <button type="submit" name="add">ДОБАВИТЬ СЛОВО</button>
         <button type="submit" name="cancel">УБРАТЬ СЛОВО</button>
         <button type="submit" name="count">ПОСЧИТАТЬ СЛОВА</button>
         <button type="submit" name="check">ЗАКОНЧИТЬ ИГРУ</button>
+        <button type="submit" name="end" onclick="return confirmAction()">НОВАЯ ИГРА</button>
+        <button type="submit" name="doc">ПРАВИЛА ИГРЫ</button>
         <p><input type="text" name="word" autocomplete="off" autofocus></p>
     </form>
-    <h2>
+    <h3>
         {% for i in game.players_word_list %}
         {{ i }}
         {% endfor %}
-    </h2>
-    <h3>{% if res %}
+    </h3>
+    <h4>{% if res %}
         {{ res }}
         {% endif %}
-    </h3>
+    </h4>
 </body>
 </html>
 

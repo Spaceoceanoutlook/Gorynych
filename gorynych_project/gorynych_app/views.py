@@ -23,18 +23,23 @@ def index(request):
         game.check_words_of_comp()
         return render(request, 'gorynych_app/final.html', context=context)
     if request.method == 'POST' and 'end' in request.POST:
-        replace_game()
+        new_game()
         return redirect('index')
     return render(request, 'gorynych_app/index.html', context=context)
 
 
-def replace_game():
+game = Words()
+
+
+def new_game():
     global game
     del game
     game = Words()
 
 
-game = Words()
+
+
+
 
 
 
