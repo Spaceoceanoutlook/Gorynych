@@ -16,7 +16,8 @@
     <title>Горыныч</title>
 </head>
 <body>
-    <h1>{% for i in game.deck %}
+    <h1>
+    {% for i in game.deck %}
         {{ i }}
         {% endfor %}
     </h1>
@@ -30,10 +31,9 @@
         <button type="submit" name="doc">ПРАВИЛА ИГРЫ</button>
         <p><input type="text" name="word" autocomplete="off" autofocus></p>
     </form>
-    <h4>{% if res %}
+    {% if res %}
             {{ res }}
         {% endif %}
-    </h4>
     <h3>
         {% for i in game.players_word_list %}
             {% if i in game.gorynych_user %}

@@ -10,10 +10,10 @@
     <title>Горыныч</title>
 </head>
 <body>
-    <h5>{% for i in game.deck %}
+    <h2>{% for i in game.deck %}
         {{ i }}
     {% endfor %}
-    </h5>
+    </h2>
     <p>Ваши слова({{ game.players_word_list|length }}):</p>
     {% for i in game.players_word_list %}
         {% if i in game.gorynych_user and i in game.gorynych_comp %}

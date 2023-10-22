@@ -4,12 +4,12 @@ from .models import Word
 consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т"]
 vowel_letters = ["А", "Е", "И", "О", "Я"]
 rare_letters = ["Ф", "Х", "Ц", "Ч", "Ш", "Ж", "З", "Ю", "У"]
-the_rarest = ["Й", "Щ", "Ъ", "Ь", "Ё", "Ы", "Э"]
+the_rarest = ["Й", "Щ", "Ь", "Ё", "Ы", "Э"]
 
 
 def comp_words():
     """ Возвращает список слов из БД """
-    return [i.word for i in Word.objects.all()]
+    return random.shuffle([i.word for i in Word.objects.all()])
 
 
 class Words:
