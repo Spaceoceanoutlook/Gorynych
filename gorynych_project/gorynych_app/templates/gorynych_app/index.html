@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <script>
     function confirmAction(){
-      var confirmed = confirm("Начть новую игру?");
+      var confirmed = confirm("Начать новую игру?");
       return confirmed;
 }
     </script>
@@ -20,7 +20,7 @@
         {{ i }}
         {% endfor %}
     </h1>
-    <p>ГОРЫНЫЧ: {{ game.number_user }}</p>
+    <img src="static/img/gor{{ game.number_user }}.png" width="200">
     <form action="" method="post">{% csrf_token %}
         <button type="submit" name="add">ДОБАВИТЬ СЛОВО</button>
         <button type="submit" name="cancel">УБРАТЬ СЛОВО</button>
@@ -30,15 +30,20 @@
         <button type="submit" name="doc">ПРАВИЛА ИГРЫ</button>
         <p><input type="text" name="word" autocomplete="off" autofocus></p>
     </form>
-    <h3>
-        {% for i in game.players_word_list %}
-        {{ i }}
-        {% endfor %}
-    </h3>
     <h4>{% if res %}
-        {{ res }}
+            {{ res }}
         {% endif %}
     </h4>
+    <h3>
+        {% for i in game.players_word_list %}
+            {% if i in game.gorynych_user %}
+                <span style="color:green">{{ i }}</span>
+            {% else %}
+                {{ i }}
+            {% endif %}
+        {% endfor %}
+    </h3>
 </body>
 </html>
+
 

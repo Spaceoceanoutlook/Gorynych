@@ -25,6 +25,8 @@ def index(request):
     if request.method == 'POST' and 'end' in request.POST:
         new_game()
         return redirect('index')
+    if request.method == 'POST' and 'doc' in request.POST:
+        return render(request, 'gorynych_app/rules.html', context=context)
     return render(request, 'gorynych_app/index.html', context=context)
 
 

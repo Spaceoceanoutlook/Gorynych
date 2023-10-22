@@ -1,23 +1,23 @@
 import random
 from .models import Word
 
-consonant_letters = ["Б", "В", "Г", "Д", "Ж", "З", "Й",
-                     "К", "Л", "М", "Н", "П", "Р", "С", "Т",
-                     "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ь"]
-vowel_letters = ["А", "Е", "Ё", "И", "О", "У", "Ы", "Э", "Ю", "Я"]
-choosing_a_number = [0, 1, 2, 3]
+consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т"]
+vowel_letters = ["А", "Е", "И", "О", "Я"]
+rare_letters = ["Ф", "Х", "Ц", "Ч", "Ш", "Ж", "З", "Ю", "У"]
+the_rarest = ["Й", "Щ", "Ъ", "Ь", "Ё", "Ы", "Э"]
 
 
 def comp_words():
+    """ Возвращает список слов из БД """
     return [i.word for i in Word.objects.all()]
 
 
 class Words:
     def __init__(self):
-        self.deck = random.sample(consonant_letters, 8) + random.sample(vowel_letters, 5)
-        number = random.choice(choosing_a_number)
-        self.number_user = number
-        self.number_comp = number
+        self.deck = random.sample(consonant_letters, 6) + random.sample(vowel_letters, 3) \
+                    + random.sample(rare_letters, 1) + random.sample(the_rarest, 1)
+        self.number_user = 3
+        self.number_comp = 3
         self.players_word_list = []
         self.comp_word_list = []
         self.final_comp_word_list = []
@@ -26,6 +26,9 @@ class Words:
         self.gorynych_comp = []
 
     def checking_for_all_letters(self, w: str):
+        """ Проверка слова игрока """
+        if w in self.players_word_list:
+            return 'Такое слово уже есть'
         dict_of_letters = {}
         for i in w:
             if i not in self.deck:
@@ -45,12 +48,10 @@ class Words:
             if sum_letters - count_letters != 0:
                 self.gorynych_user.append(w)
             self.temp = sum_letters - count_letters
-        if w not in self.players_word_list:
-            self.players_word_list.append(w)
-        else:
-            return 'Такое слово уже есть'
+        self.players_word_list.append(w)
 
     def words_of_comp(self):
+        """ Первая проверка слова компьютера """
         for word in comp_words():
             for letter in word.upper():
                 if letter not in self.deck:
@@ -59,6 +60,7 @@ class Words:
                 self.comp_word_list.append(word.upper())
 
     def check_words_of_comp(self):
+        """ Вторая проверка слова компьютера """
         for word in self.comp_word_list:
             dict_of_letters_comp = {}
             for letter in word:
@@ -79,6 +81,7 @@ class Words:
             self.final_comp_word_list.append(word)
 
     def who_won(self):
+        """ Определяет победителя """
         if len(self.players_word_list) < len(self.final_comp_word_list):
             return 'Вы проиграли'
         if len(self.players_word_list) == len(self.final_comp_word_list):

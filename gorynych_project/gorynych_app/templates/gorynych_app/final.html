@@ -20,7 +20,7 @@
             <b><span style="color:green">{{ i }}</span></b>
         {% elif i in game.gorynych_user %}
             <span style="color:green">{{ i }}</span>
-        {% elif i not in game.final_comp_word_list %}
+        {% elif i in game.final_comp_word_list %}
             <b>{{ i }}</b>
         {% else %}
             {{ i }}
@@ -33,7 +33,7 @@
             <b><span style="color:green">{{ i }}</span></b>
         {% elif i in game.gorynych_comp %}
             <span style="color:green">{{ i }}</span>
-        {% elif i not in game.players_word_list %}
+        {% elif i in game.players_word_list %}
             <b>{{ i }}</b>
         {% else %}
             {{ i }}

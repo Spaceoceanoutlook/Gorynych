@@ -22,3 +22,16 @@ button {
     font-size: 25px;
 }
 
+a {
+    color: #696969;
+    text-decoration: none;
+    border-bottom: 1px solid #b3b3b3;
+    padding-bottom: 2px;
+}
+
+a:hover {
+    color: #000000;
+    text-decoration: none;
+    border: none;
+    }
+
