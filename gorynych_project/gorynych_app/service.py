@@ -8,8 +8,10 @@ the_rarest = ["Й", "Щ", "Ь", "Ё", "Ы", "Э"]
 
 
 def comp_words():
-    """ Возвращает список слов из БД """
-    return random.shuffle([i.word for i in Word.objects.all()])
+    """ Возвращает перемешанный список слов из БД """
+    res = [i.word for i in Word.objects.all()]
+    random.shuffle(res)
+    return res
 
 
 class Words:
