@@ -30,9 +30,9 @@
         <h6>
         {% for i in game.players_word_list %}
             {% if i in game.gorynych_user %}
-            <a href="https://ru.wikipedia.org/wiki/{{ i|title }}" target="_blank" style="color:green">{{ i }}</a>
+            <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color:green">{{ i }}</a>
             {% else %}
-                <a href="https://ru.wikipedia.org/wiki/{{ i|title }}" target="_blank">{{ i }}</a>
+                <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank">{{ i }}</a>
             {% endif %}
         {% endfor %}
         </h6>
