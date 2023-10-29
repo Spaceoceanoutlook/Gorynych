@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .service import Words
 
+game = Words()
+
 
 def index(request):
     context = {'game': game}
@@ -30,14 +32,10 @@ def index(request):
     return render(request, 'gorynych_app/index.html', context=context)
 
 
-game = Words()
-
-
 def new_game():
     global game
     del game
     game = Words()
-
 
 
 

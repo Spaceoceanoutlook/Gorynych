@@ -3,8 +3,8 @@ from .models import Word
 
 consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т"]
 vowel_letters = ["А", "Е", "И", "О", "Я"]
-rare_letters = ["Ф", "Х", "Ц", "Ч", "Ш", "Ж", "З", "Ю", "У"]
-the_rarest = ["Й", "Щ", "Ь", "Ё", "Ы", "Э"]
+rare_letters = ["Ф", "Х", "Ц", "Ч", "Ж", "З", "Ю", "У"]
+the_rarest = ["Й", "Щ", "Ь", "Ё", "Ы", "Э", "Ш"]
 
 
 def comp_words():
