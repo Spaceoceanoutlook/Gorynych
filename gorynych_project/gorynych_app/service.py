@@ -1,5 +1,6 @@
 import random
 from .models import Word
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т"]
 vowel_letters = ["А", "Е", "И", "О", "Я"]
@@ -14,7 +15,9 @@ def comp_words():
     return res
 
 
-class Words:
+class Words(LoginRequiredMixin):
+    raise_exception = True
+
     def __init__(self):
         self.deck = random.sample(consonant_letters, 6) + random.sample(vowel_letters, 3) \
                     + random.sample(rare_letters, 1) + random.sample(the_rarest, 1)

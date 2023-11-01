@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; align-items: center; margin-top: 200px;">
+        <div>
+            {% if messages %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endif %}
+            <h1>Регистрация</h1>
+        </div>
+        <p><b>Пароль должен состоять минимум из 8 символов и содержать числа и буквы</b></p>
+        <div class="form">
+            <form action="" method="POST">{% csrf_token %}
+            {{ form.as_p }}
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+        </div>
+        <p><a href="#" onclick="history.back();">Назад</a></p>
+    </div>
+</body>
+</html>

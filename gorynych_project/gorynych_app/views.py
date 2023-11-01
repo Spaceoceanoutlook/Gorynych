@@ -1,5 +1,8 @@
+from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
+from .forms import UserRegForm, UserLoginForm
 from .service import Words
+from django.contrib import messages
 
 game = Words()
 
@@ -29,6 +32,8 @@ def index(request):
         return redirect('index')
     if request.method == 'POST' and 'doc' in request.POST:
         return render(request, 'gorynych_app/rules.html', context=context)
+    if request.method == 'POST' and 'logout' in request.POST:
+        user_logout(request)
     return render(request, 'gorynych_app/index.html', context=context)
 
 
@@ -36,6 +41,43 @@ def new_game():
     global game
     del game
     game = Words()
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Успешная регистрация')
+            return redirect('index')
+        else:
+            messages.error(request, 'Что-то пошло не так')
+    else:
+        form = UserRegForm()
+    title = 'Регистрация'
+    context = {'form': form, 'title': title}
+    return render(request, 'gorynych_app/register.html', context=context)
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            new_game()
+            return redirect('index')
+    else:
+        form = UserLoginForm()
+    title = 'Авторизация'
+    context = {'form': form, 'title': title}
+    return render(request, 'gorynych_app/login.html', context=context)
+
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
 
 
 
