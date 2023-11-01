@@ -39,7 +39,6 @@ def index(request):
 
 def new_game():
     global game
-    del game
     game = Words()
 
 
@@ -55,8 +54,7 @@ def register(request):
             messages.error(request, 'Что-то пошло не так')
     else:
         form = UserRegForm()
-    title = 'Регистрация'
-    context = {'form': form, 'title': title}
+    context = {'form': form}
     return render(request, 'gorynych_app/register.html', context=context)
 
 
@@ -66,22 +64,13 @@ def user_login(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            new_game()
             return redirect('index')
     else:
         form = UserLoginForm()
-    title = 'Авторизация'
-    context = {'form': form, 'title': title}
+    context = {'form': form}
     return render(request, 'gorynych_app/login.html', context=context)
 
 
 def user_logout(request):
     logout(request)
     return redirect('login')
-
-
-
-
-
-
-

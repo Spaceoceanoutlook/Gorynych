@@ -15,9 +15,7 @@ def comp_words():
     return res
 
 
-class Words(LoginRequiredMixin):
-    raise_exception = True
-
+class Words:
     def __init__(self):
         self.deck = random.sample(consonant_letters, 6) + random.sample(vowel_letters, 3) \
                     + random.sample(rare_letters, 1) + random.sample(the_rarest, 1)
