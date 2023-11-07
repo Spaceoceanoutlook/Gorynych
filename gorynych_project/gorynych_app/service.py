@@ -29,6 +29,7 @@ class Words:
         self.gorynych_comp = []
 
     def checking_for_all_letters(self, w: str):
+        w = w.strip()
         """ Проверка слова игрока """
         if w in self.players_word_list:
             return 'Такое слово уже есть'
