@@ -1,5 +1,5 @@
-import random
 from .models import Word
+import random
 
 consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т"]
 vowel_letters = ["А", "Е", "И", "О", "Я"]
@@ -8,9 +8,8 @@ the_rarest = ["Й", "Щ", "Ь", "Ё", "Ы", "Э", "Ш"]
 
 
 def comp_words():
-    """ Возвращает перемешанный список слов из БД """
-    res = [i.word for i in Word.objects.all()]
-    random.shuffle(res)
+    """ Возвращает множество, составленное из слов из БД """
+    res = {i.word for i in Word.objects.all()}
     return res
 
 
@@ -21,8 +20,8 @@ class Words:
         self.number_user = 3
         self.number_comp = 3
         self.players_word_list = []
-        self.comp_word_list = []
-        self.final_comp_word_list = []
+        self.comp_word_list = set()
+        self.final_comp_word_list = set()
         self.temp = 0
         self.gorynych_user = []
         self.gorynych_comp = []
@@ -60,7 +59,7 @@ class Words:
                 if letter not in self.deck:
                     break
             else:
-                self.comp_word_list.append(word.upper())
+                self.comp_word_list.add(word.upper())
 
     def check_words_of_comp(self):
         """ Вторая проверка слова компьютера """
@@ -81,7 +80,7 @@ class Words:
                 self.number_comp -= sum_letters - count_letters
                 if sum_letters - count_letters != 0:
                     self.gorynych_comp.append(word)
-            self.final_comp_word_list.append(word)
+            self.final_comp_word_list.add(word)
 
     def who_won(self):
         """ Определяет победителя """
@@ -90,3 +89,10 @@ class Words:
         if len(self.players_word_list) == len(self.final_comp_word_list):
             return 'Ничья'
         return 'Вы победили!'
+
+    def all_gorynych_comp(self):
+        """ Вовращает полный список слов-голов Горыныча """
+        set_final = self.final_comp_word_list
+        set_first = self.comp_word_list
+        all_word = set_first - set_final
+        return list(all_word)

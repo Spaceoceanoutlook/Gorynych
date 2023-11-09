@@ -13,6 +13,8 @@ def index(request):
         word = request.POST.get('word').upper()
         res = game.checking_for_all_letters(word)
         new_context = {'res': res} | context
+        if game.number_user < 3 and len(game.players_word_list) % 20 == 0:
+            game.number_user += 1
         return render(request, 'gorynych_app/index.html', context=new_context)
     if request.method == 'POST' and 'cancel' in request.POST:
         if len(game.players_word_list) >= 1:
@@ -26,6 +28,12 @@ def index(request):
     if request.method == 'POST' and 'check' in request.POST:
         game.words_of_comp()
         game.check_words_of_comp()
+        count_new_words_for_comp = len(game.final_comp_word_list) // 20
+        while len(game.all_gorynych_comp()) > 0 and count_new_words_for_comp > 0:
+            new_word = game.all_gorynych_comp().pop()
+            game.gorynych_comp.append(new_word)
+            game.final_comp_word_list.add(new_word)
+            count_new_words_for_comp -= 1
         return render(request, 'gorynych_app/final.html', context=context)
     if request.method == 'POST' and 'end' in request.POST:
         new_game()
