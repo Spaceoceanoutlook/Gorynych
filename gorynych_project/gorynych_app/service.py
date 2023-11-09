@@ -1,6 +1,5 @@
 import random
 from .models import Word
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т"]
 vowel_letters = ["А", "Е", "И", "О", "Я"]
