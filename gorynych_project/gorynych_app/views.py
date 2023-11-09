@@ -17,10 +17,14 @@ def index(request):
             game.number_user += 1
         return render(request, 'gorynych_app/index.html', context=new_context)
     if request.method == 'POST' and 'cancel' in request.POST:
-        if len(game.players_word_list) >= 1:
+        if len(game.players_word_list) % 20 == 0:  # Убрать голову обратно если удалил 20-е слово, за которое ее дали
+            game.players_word_list.pop()
+            game.number_user -= 1
+        elif len(game.players_word_list) >= 1:
             game.number_user += game.temp    # Возврат Горыныча при отмене слова
             game.players_word_list.pop()
             game.temp = 0
+
     if request.method == 'POST' and 'count' in request.POST:
         res = f'Количество ваших слов: {len(game.players_word_list)}'
         new_context = {'res': res} | context
