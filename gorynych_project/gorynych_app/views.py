@@ -12,11 +12,7 @@ def index(request):
     if request.method == 'POST' and 'add' in request.POST:
         word = request.POST.get('word').upper()
         res = game.checking_for_all_letters(word)
-        if len(game.players_word_list) % 20 == 0:
-            res = 'Вы вернули одну голову'
         new_context = {'res': res} | context
-        if game.number_user < 3 and len(game.players_word_list) % 20 == 0:
-            game.number_user += 1
         return render(request, 'gorynych_app/index.html', context=new_context)
     if request.method == 'POST' and 'cancel' in request.POST:
         if len(game.players_word_list) % 20 == 0:  # Убрать голову обратно если удалил 20-е слово, за которое ее дали

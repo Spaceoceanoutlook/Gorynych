@@ -51,6 +51,9 @@ class Words:
                 self.gorynych_user.append(w)
             self.temp = sum_letters - count_letters
         self.players_word_list.append(w)
+        if len(self.players_word_list) % 20 == 0 and self.number_user < 3:
+            self.number_user += 1
+            return 'Вы вернули одну голову'
 
     def words_of_comp(self):
         """ Первая проверка слова компьютера """
