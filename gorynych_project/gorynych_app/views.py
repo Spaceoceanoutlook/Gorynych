@@ -1,7 +1,7 @@
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
 from .forms import UserRegForm, UserLoginForm
-from .service import Words
+from .service import Words, get_rec
 from django.contrib import messages
 
 game = Words()
@@ -38,12 +38,16 @@ def index(request):
             count_new_words_for_comp -= 1
         return render(request, 'gorynych_app/final.html', context=context)
     if request.method == 'POST' and 'end' in request.POST:
+        game.save_rec()
         new_game()
         return redirect('index')
     if request.method == 'POST' and 'doc' in request.POST:
         return render(request, 'gorynych_app/rules.html', context=context)
     if request.method == 'POST' and 'logout' in request.POST:
         user_logout(request)
+    if request.method == 'POST' and 'rec' in request.POST:
+        new_context = {'get_rec': get_rec} | context
+        return render(request, 'gorynych_app/rec.html', context=new_context)
     return render(request, 'gorynych_app/index.html', context=context)
 
 

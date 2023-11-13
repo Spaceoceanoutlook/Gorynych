@@ -11,3 +11,16 @@ class Word(models.Model):
     class Meta:
         verbose_name = 'Слово'
         verbose_name_plural = 'Слова'
+
+
+class Record(models.Model):
+    record = models.IntegerField(verbose_name='Рекорд')
+    object = models.Manager()
+
+    def __str__(self):
+        return f'{self.record}'
+
+    class Meta:
+        verbose_name = 'Рекорд'
+        verbose_name_plural = 'Рекорды'
+

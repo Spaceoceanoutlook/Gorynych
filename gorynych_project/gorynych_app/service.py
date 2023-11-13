@@ -1,10 +1,17 @@
-from .models import Word
+from .models import Word, Record
 import random
 
 consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т"]
 vowel_letters = ["А", "Е", "И", "О", "Я"]
 rare_letters = ["Ф", "Х", "Ц", "Ч", "Ж", "З", "Ю", "У"]
 the_rarest = ["Й", "Щ", "Ь", "Ё", "Ы", "Э", "Ш"]
+
+
+def get_rec():
+    """ Получает список рекордов из БД """
+    r = [i.record for i in Record.object.all()]
+    r.sort(reverse=True)
+    return r
 
 
 def comp_words():
@@ -99,3 +106,11 @@ class Words:
         set_first = self.comp_word_list
         all_word = set_first - set_final
         return list(all_word)
+
+    def save_rec(self):
+        """ Сохраняет новый рекорд из БД """
+        rec = get_rec()
+        if len(self.players_word_list) > rec[-1]:
+            r = Record.object.filter(record=rec[-1])[0]
+            r.record = len(self.players_word_list)
+            r.save()
