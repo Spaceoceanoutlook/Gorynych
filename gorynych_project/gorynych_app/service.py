@@ -46,18 +46,25 @@ class Words:
                 dict_of_letters[i] = 1
             else:
                 dict_of_letters[i] += 1
-        sum_letters = sum(dict_of_letters.values())
-        count_letters = len(dict_of_letters)
+        sum_letters = sum(dict_of_letters.values())            # Количество всех символов
+        count_letters = len(dict_of_letters)                   # Количество уникальных символов
         if self.number_user == 0 and sum_letters > count_letters:
             return 'Горыныч без голов'
         if self.number_user < sum_letters - count_letters:
             return 'Для этого слова не хватает голов у Горыныча'
         else:
-            self.number_user -= sum_letters - count_letters
-            if sum_letters - count_letters != 0:
+            self.temp = sum_letters - count_letters  # Количество использованных голов Горыныча в данном слове
+            self.number_user -= self.temp
+            if self.temp != 0:
                 self.gorynych_user.append(w)
-            self.temp = sum_letters - count_letters
         self.players_word_list.append(w)
+        if self.temp == 0:
+            if len(w) == 6:
+                return 'Круто!'
+            if len(w) == 7:
+                return 'Фантастика!'
+            if len(w) > 7:
+                return 'Невероятно! Такое слово точно существует?'
         if len(self.players_word_list) % 20 == 0 and self.number_user < 3:
             self.number_user += 1
             return 'Вы вернули одну голову'
