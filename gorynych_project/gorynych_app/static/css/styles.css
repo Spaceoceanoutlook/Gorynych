@@ -18,10 +18,10 @@ input {
 
 button {
     background-color: white;
-    width: 190px;
+    width: 200px;
     height: 30px;
     font-size: 15px;
-    border-style: None
+    border-style: None;
 }
 
 a {
