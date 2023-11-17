@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+
 from .models import Word, Record
 import random
 
@@ -9,7 +11,7 @@ the_rarest = ["Й", "Щ", "Ь", "Ё", "Ы", "Э", "Ш"]
 
 def get_rec():
     """ Получает список рекордов из БД """
-    r = [i.record for i in Record.object.all()]
+    r = [i.record for i in Record.objects.all()]
     r.sort(reverse=True)
     return r
 
@@ -46,8 +48,8 @@ class Words:
                 dict_of_letters[i] = 1
             else:
                 dict_of_letters[i] += 1
-        sum_letters = sum(dict_of_letters.values())            # Количество всех символов
-        count_letters = len(dict_of_letters)                   # Количество уникальных символов
+        sum_letters = sum(dict_of_letters.values())  # Количество всех символов
+        count_letters = len(dict_of_letters)  # Количество уникальных символов
         if self.number_user == 0 and sum_letters > count_letters:
             return 'Горыныч без голов'
         if self.number_user < sum_letters - count_letters:
@@ -118,6 +120,6 @@ class Words:
         """ Сохраняет новый рекорд из БД """
         rec = get_rec()
         if len(self.players_word_list) > rec[-1]:
-            r = Record.object.filter(record=rec[-1])[0]
+            r = Record.objects.filter(record=rec[-1])[0]
             r.record = len(self.players_word_list)
             r.save()

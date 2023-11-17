@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Word, Record
+from .models import Word, Record, UserGame
 
 
 class WordAdmin(admin.ModelAdmin):
@@ -8,3 +8,4 @@ class WordAdmin(admin.ModelAdmin):
 
 admin.site.register(Word, WordAdmin)
 admin.site.register(Record)
+admin.site.register(UserGame)

@@ -21,7 +21,7 @@
     <link rel="icon" type="image/png" href="{% static 'img/gor1.png' %}">
 </head>
 <body>
-    {% if request.user.is_authenticated %}
+    {{ request.user }}
     <img src="static/img/gor{{ game.number_user }}.png" width="200">
     <h3>
     {% for i in game.deck %}
@@ -51,10 +51,6 @@
         <button type="submit" name="doc">ПРАВИЛА ИГРЫ</button>
         <button type="submit" name="logout">ВЫЙТИ</button>
     </form>
-    {% else %}
-    <h2><a href="{% url 'login' %}">Вход</a></h2>
-    <h2><a href="{% url 'register' %}">Регистрация</a></h2>
-    {% endif %}
 </body>
 </html>
 

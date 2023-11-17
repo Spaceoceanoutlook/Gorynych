@@ -1,27 +1,40 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from .forms import UserRegForm, UserLoginForm
+from .models import UserGame
 from .service import Words, get_rec
 from django.contrib import messages
-
-game = Words()
+import pickle
 
 
 def index(request):
+    try:
+        # Получаем запись по id игрока
+        games = UserGame.objects.get(user_id=User.objects.get(username=request.user).id)
+        # Десериализуем состояние игры игрока из БД
+        game = pickle.loads(games.game)
+    except ObjectDoesNotExist:
+        # Если игрок не авторизован, то отправляется на страницу авторизации
+        return redirect('login')
     context = {'game': game}
     if request.method == 'POST' and 'add' in request.POST:
         word = request.POST.get('word').upper()
         res = game.checking_for_all_letters(word)
         new_context = {'res': res} | context
+        games.game = pickle.dumps(game)
+        games.save()
         return render(request, 'gorynych_app/index.html', context=new_context)
     if request.method == 'POST' and 'cancel' in request.POST:
         if len(game.players_word_list) % 20 == 0:  # Убрать голову обратно если удалил 20-е слово, за которое ее дали
             game.number_user += game.temp
             game.players_word_list.pop()
-            game.number_user -= 1
+            if game.number_user > 0:
+                game.number_user -= 1
             game.temp = 0
         elif len(game.players_word_list) >= 1:
-            game.number_user += game.temp    # Возврат Горыныча при отмене слова
+            game.number_user += game.temp  # Возврат Горыныча при отмене слова
             game.players_word_list.pop()
             game.temp = 0
     if request.method == 'POST' and 'count' in request.POST:
@@ -40,21 +53,22 @@ def index(request):
         return render(request, 'gorynych_app/final.html', context=context)
     if request.method == 'POST' and 'end' in request.POST:
         game.save_rec()
-        new_game()
+        # Получаем запись
+        games = UserGame.objects.get(user_id=User.objects.get(username=request.user).id)
+        # Удаляем запись
+        games.delete()
+        # Создаем новую запись
+        UserGame.objects.create(game=pickle.dumps(Words()), user_id=User.objects.get(username=request.user).id)
         return redirect('index')
     if request.method == 'POST' and 'doc' in request.POST:
         return render(request, 'gorynych_app/rules.html', context=context)
     if request.method == 'POST' and 'logout' in request.POST:
         user_logout(request)
+        return redirect('login')
     if request.method == 'POST' and 'rec' in request.POST:
         new_context = {'get_rec': get_rec} | context
         return render(request, 'gorynych_app/rec.html', context=new_context)
     return render(request, 'gorynych_app/index.html', context=context)
-
-
-def new_game():
-    global game
-    game = Words()
 
 
 def register(request):
@@ -63,7 +77,9 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            print(user)
             messages.success(request, 'Успешная регистрация')
+            UserGame.objects.create(game=pickle.dumps(Words()), user_id=User.objects.get(username=user).id)
             return redirect('index')
         else:
             messages.error(request, 'Что-то пошло не так')
