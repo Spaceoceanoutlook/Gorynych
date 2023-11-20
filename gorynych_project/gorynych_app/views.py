@@ -20,23 +20,33 @@ def index(request):
         return redirect('login')
     context = {'game': game}
     if request.method == 'POST' and 'add' in request.POST:
+        # При нажатии ДОБАВИТЬ
         word = request.POST.get('word').upper()
         res = game.checking_for_all_letters(word)
         new_context = {'res': res} | context
+        # обновляем состояние игры в БД
         games.game = pickle.dumps(game)
         games.save()
         return render(request, 'gorynych_app/index.html', context=new_context)
     if request.method == 'POST' and 'cancel' in request.POST:
-        if len(game.players_word_list) % 20 == 0:  # Убрать голову обратно если удалил 20-е слово, за которое ее дали
+        # При нажатии УБРАТЬ
+        # Убрать голову Горыныча если удалил 20-е слово, за которое ее дали
+        if len(game.players_word_list) % 20 == 0:
             game.number_user += game.temp
             game.players_word_list.pop()
             if game.number_user > 0:
                 game.number_user -= 1
             game.temp = 0
         elif len(game.players_word_list) >= 1:
+            if len(game.players_word_list[-1]) > 5 and len(game.players_word_list[-1]) == len(set(game.players_word_list[-1])):
+                if game.number_user > 0:
+                    game.number_user -= 1
             game.number_user += game.temp  # Возврат Горыныча при отмене слова
             game.players_word_list.pop()
             game.temp = 0
+        # обновляем состояние игры в БД
+        games.game = pickle.dumps(game)
+        games.save()
     if request.method == 'POST' and 'count' in request.POST:
         res = f'Количество ваших слов: {len(game.players_word_list)}'
         new_context = {'res': res} | context

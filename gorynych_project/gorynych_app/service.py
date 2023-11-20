@@ -62,11 +62,17 @@ class Words:
         self.players_word_list.append(w)
         if self.temp == 0:
             if len(w) == 6:
-                return 'Круто!'
+                if self.number_user < 3:
+                    self.number_user += 1
+                return 'Круто! Держите голову!'
             if len(w) == 7:
-                return 'Фантастика!'
+                if self.number_user < 3:
+                    self.number_user += 1
+                return 'Фантастика! Награждаетесь головой!'
             if len(w) > 7:
-                return 'Невероятно! Такое слово точно существует?'
+                if self.number_user < 3:
+                    self.number_user += 1
+                return 'Невероятно! Такое слово точно существует? Голова уже на месте!'
         if len(self.players_word_list) % 20 == 0 and self.number_user < 3:
             self.number_user += 1
             return 'Вы вернули одну голову'
