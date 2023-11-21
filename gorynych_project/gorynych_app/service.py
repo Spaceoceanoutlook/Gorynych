@@ -5,8 +5,13 @@ consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р",
 vowel_letters = ["А", "Е", "И", "О", "Я"]
 rare_letters = ["Ф", "Х", "Ц", "Ч", "Ж", "З", "Ю", "У"]
 the_rarest = ["Й", "Щ", "Ь", "Ё", "Ы", "Э", "Ш"]
-when_head = ["Круто, держите колову", "Фантастика! Награждаетесь головой", "Невероятно! Голова уже на месте",
-             "Классное слово, получаете голову", "Полегче! Голова ваша", "Ничего себе вы придумали! Плюс голова"]
+first_phrase = ["Круто!", "Фантастика!", "Невероятно!", "Классное слово!", "Полегче!",
+                "Ничего себе вы придумали!", "Вы молодец!", "Отлично!"]
+second_phrase = ["Держите голову", "Награждаетесь головой", "Голова уже на месте",
+                 "Получаете голову", "Голова ваша", "Плюс голова", "Даю вам голову"]
+third_phrase = ["Но голову дать не могу.", "Но к сожалению, без добавления головы.",
+                "Но без головы в этот раз."]
+fourth_phrase = ["У Горыныча все головы на месте", "Голов у Горыныча полный комплект", "Горыныч в полном составе"]
 
 
 def get_rec():
@@ -69,12 +74,13 @@ class Words:
                 if self.number_user == 3:
                     self.temp += 1
                     self.words_without_repeating_user.append(w)
-                    return f'{random.choice(when_head)}. Хотя нет, у вас и так все головы на месте'
+                    # Возвращается случайная фраза без прибавления головы
+                    return f'{random.choice(first_phrase)} {random.choice(third_phrase)} {random.choice(fourth_phrase)}'
                 elif self.number_user < 3:
                     self.number_user += 1
                 self.words_without_repeating_user.append(w)
                 # Возвращается случайная фраза с прибавлением головы
-                return random.choice(when_head)
+                return f'{random.choice(first_phrase)} {random.choice(second_phrase)}'
         if len(self.players_word_list) % 20 == 0 and self.number_user < 3:
             self.number_user += 1
             return 'Вы вернули одну голову'
