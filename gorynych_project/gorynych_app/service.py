@@ -1,5 +1,3 @@
-from django.contrib.auth.models import User
-
 from .models import Word, Record
 import random
 
@@ -7,6 +5,8 @@ consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р",
 vowel_letters = ["А", "Е", "И", "О", "Я"]
 rare_letters = ["Ф", "Х", "Ц", "Ч", "Ж", "З", "Ю", "У"]
 the_rarest = ["Й", "Щ", "Ь", "Ё", "Ы", "Э", "Ш"]
+when_head = ["Круто, держите колову", "Фантастика! Награждаетесь головой", "Невероятно! Голова уже на месте",
+             "Классное слово, получаете голову", "Полегче! Голова ваша", "Ничего себе вы придумали! Плюс голова"]
 
 
 def get_rec():
@@ -61,18 +61,10 @@ class Words:
                 self.gorynych_user.append(w)
         self.players_word_list.append(w)
         if self.temp == 0:
-            if len(w) == 6:
+            if len(w) > 5:
                 if self.number_user < 3:
                     self.number_user += 1
-                return 'Круто! Держите голову!'
-            if len(w) == 7:
-                if self.number_user < 3:
-                    self.number_user += 1
-                return 'Фантастика! Награждаетесь головой!'
-            if len(w) > 7:
-                if self.number_user < 3:
-                    self.number_user += 1
-                return 'Невероятно! Такое слово точно существует? Голова уже на месте!'
+                return random.choice(when_head)
         if len(self.players_word_list) % 20 == 0 and self.number_user < 3:
             self.number_user += 1
             return 'Вы вернули одну голову'
