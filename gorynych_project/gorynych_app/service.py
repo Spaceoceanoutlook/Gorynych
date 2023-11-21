@@ -34,6 +34,8 @@ class Words:
         self.temp = 0
         self.gorynych_user = []
         self.gorynych_comp = []
+        self.words_without_repeating_user = []
+        self.words_without_repeating_comp = []
 
     def checking_for_all_letters(self, w: str):
         w = w.strip()
@@ -60,10 +62,18 @@ class Words:
             if self.temp != 0:
                 self.gorynych_user.append(w)
         self.players_word_list.append(w)
+        # Прибавление головы Горыныча за длинные слова без повторов
         if self.temp == 0:
             if len(w) > 5:
-                if self.number_user < 3:
+                # Когда три головы и добавляется длинное слово
+                if self.number_user == 3:
+                    self.temp += 1
+                    self.words_without_repeating_user.append(w)
+                    return f'{random.choice(when_head)}. Хотя нет, у вас и так все головы на месте'
+                elif self.number_user < 3:
                     self.number_user += 1
+                self.words_without_repeating_user.append(w)
+                # Возвращается случайная фраза с прибавлением головы
                 return random.choice(when_head)
         if len(self.players_word_list) % 20 == 0 and self.number_user < 3:
             self.number_user += 1
@@ -87,16 +97,27 @@ class Words:
                     dict_of_letters_comp[letter] = 1
                 else:
                     dict_of_letters_comp[letter] += 1
+            # Количество букв в слове
             sum_letters = sum(dict_of_letters_comp.values())
+            # Количество уникальных букв в слове
             count_letters = len(dict_of_letters_comp)
             if self.number_comp == 0 and sum_letters > count_letters:
                 continue
             if self.number_comp < sum_letters - count_letters:
                 continue
             else:
+                # Если у Горыныча компа есть головы
                 self.number_comp -= sum_letters - count_letters
+                # Если слово с повторами букв
                 if sum_letters - count_letters != 0:
+                    # Добавляем с список Горынычей компа
                     self.gorynych_comp.append(word)
+                # Если слово длинее 5 букв и без повторов
+                if sum_letters - count_letters == 0 and sum_letters > 5:
+                    # Добавляем в список слов без повторов Горыныча
+                    self.words_without_repeating_comp.append(word)
+                    # Добавляем Горынычу компа одну голову
+                    self.number_comp += 1
             self.final_comp_word_list.add(word)
 
     def who_won(self):

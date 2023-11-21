@@ -16,7 +16,11 @@
     </h3>
     <p>Ваши слова({{ game.players_word_list|length }}):</p>
     {% for i in game.players_word_list %}
-        {% if i in game.gorynych_user and i in game.gorynych_comp %}
+        {% if i in game.words_without_repeating_user and i in game.words_without_repeating_comp %}
+            <b><a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color:blue">{{ i }}</a></b>
+        {% elif i in game.words_without_repeating_user %}
+            <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color:blue">{{ i }}</a>
+        {% elif i in game.gorynych_user and i in game.gorynych_comp %}
             <b><a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color:green">{{ i }}</a></b>
         {% elif i in game.gorynych_user %}
             <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color:green">{{ i }}</a>
@@ -29,7 +33,11 @@
     {% endfor %}
     <p>Слова компьютера({{ game.final_comp_word_list|length }}):</p>
     {% for i in game.final_comp_word_list %}
-        {% if i in game.gorynych_comp and i in game.gorynych_user %}
+        {% if i in game.words_without_repeating_user and i in game.words_without_repeating_comp %}
+            <b><a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color:blue">{{ i }}</a></b>
+        {% elif i in game.words_without_repeating_comp %}
+            <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color:blue">{{ i }}</a>
+        {% elif i in game.gorynych_comp and i in game.gorynych_user %}
             <b><a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color:green">{{ i }}</a></b>
         {% elif i in game.gorynych_comp %}
             <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color:green">{{ i }}</a>

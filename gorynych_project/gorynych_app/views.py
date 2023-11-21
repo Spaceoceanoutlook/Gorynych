@@ -39,10 +39,20 @@ def index(request):
             game.temp = 0
         elif len(game.players_word_list) >= 1:
             if len(game.players_word_list[-1]) > 5 and len(game.players_word_list[-1]) == len(set(game.players_word_list[-1])):
-                if game.number_user > 0:
+                # Когда уже было три головы и последнее слово длинное, которое нужно удалить
+                if game.number_user == 3 and game.temp == 1:
+                    game.number_user -= 1
+                elif game.number_user > 0:
                     game.number_user -= 1
             game.number_user += game.temp  # Возврат Горыныча при отмене слова
-            game.players_word_list.pop()
+            w = game.players_word_list.pop()
+            # Чтобы при удалении слова из общего списка, оно удалялось и из списка слов Горыныча, если оно там было
+            if w in game.gorynych_user:
+                game.gorynych_user.remove(w)
+            # Чтобы при удалении слова из общего списка, оно удалялось и из списка уникальных слов
+            # Горыныча, если оно там было
+            if w in game.words_without_repeating_user:
+                game.words_without_repeating_user.remove(w)
             game.temp = 0
         # обновляем состояние игры в БД
         games.game = pickle.dumps(game)
