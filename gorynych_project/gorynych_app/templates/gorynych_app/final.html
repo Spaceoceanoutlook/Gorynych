@@ -17,34 +17,34 @@
     <p>Ваши слова({{ game.players_word_list|length }}):</p>
     {% for i in game.players_word_list %}
         {% if i in game.words_without_repeating_user and i in game.words_without_repeating_comp %}
-            <b><a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color: #4285B4">{{ i }}</a></b>
+            <b><a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank" style="color: #4285B4">{{ i }}</a></b>
         {% elif i in game.words_without_repeating_user %}
-            <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color: #4285B4">{{ i }}</a>
+            <a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank" style="color: #4285B4">{{ i }}</a>
         {% elif i in game.gorynych_user and i in game.gorynych_comp %}
-            <b><a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color: #138808">{{ i }}</a></b>
+            <b><a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank" style="color: #138808">{{ i }}</a></b>
         {% elif i in game.gorynych_user %}
-            <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color: #138808">{{ i }}</a>
+            <a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank" style="color: #138808">{{ i }}</a>
         {% elif i in game.final_comp_word_list %}
-            <b><a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank">{{ i }}</a></b>
+            <b><a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank">{{ i }}</a></b>
         {% else %}
-            <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank">{{ i }}</a>
+            <a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank">{{ i }}</a>
         {% endif %}
         {% empty %} Вы не составили ни одного слова
     {% endfor %}
     <p>Слова компьютера({{ game.final_comp_word_list|length }}):</p>
     {% for i in game.final_comp_word_list %}
         {% if i in game.words_without_repeating_user and i in game.words_without_repeating_comp %}
-            <b><a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color: #4285B4">{{ i }}</a></b>
+            <b><a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank" style="color: #4285B4">{{ i }}</a></b>
         {% elif i in game.words_without_repeating_comp %}
-            <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color: #4285B4">{{ i }}</a>
+            <a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank" style="color: #4285B4">{{ i }}</a>
         {% elif i in game.gorynych_comp and i in game.gorynych_user %}
-            <b><a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color: #138808">{{ i }}</a></b>
+            <b><a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank" style="color: #138808">{{ i }}</a></b>
         {% elif i in game.gorynych_comp %}
-            <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank" style="color: #138808">{{ i }}</a>
+            <a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank" style="color: #138808">{{ i }}</a>
         {% elif i in game.players_word_list %}
-            <b><a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank">{{ i }}</a></b>
+            <b><a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank">{{ i }}</a></b>
         {% else %}
-            <a href="http://www.gramota.ru/slovari/dic/?bts=x&word={{ i|title }}" target="_blank">{{ i }}</a>
+            <a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank">{{ i }}</a>
         {% endif %}
         {% empty %} Компьютер не составил ни одного слова
     {% endfor %}
