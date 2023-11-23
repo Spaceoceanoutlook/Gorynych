@@ -72,13 +72,13 @@ def index(request):
             count_new_words_for_comp -= 1
         return render(request, 'gorynych_app/final.html', context=context)
     if request.method == 'POST' and 'end' in request.POST:
-        game.save_rec()
-        # Получаем запись
-        games = UserGame.objects.get(user_id=User.objects.get(username=request.user).id)
-        # Удаляем запись
-        games.delete()
-        # Создаем новую запись
-        UserGame.objects.create(game=pickle.dumps(Words()), user_id=User.objects.get(username=request.user).id)
+        # Если рекорд, то сохраняем
+        if len(game.players_word_list) > games.record:
+            games.record = len(game.players_word_list)
+            games.save()
+        # Создаем новую игру
+        games.game = pickle.dumps(Words())
+        games.save()
         return redirect('index')
     if request.method == 'POST' and 'doc' in request.POST:
         return render(request, 'gorynych_app/rules.html', context=context)
@@ -86,7 +86,8 @@ def index(request):
         user_logout(request)
         return redirect('login')
     if request.method == 'POST' and 'rec' in request.POST:
-        new_context = {'get_rec': get_rec} | context
+        new_context = {'get_rec': get_rec,
+                       'user': games.user} | context
         return render(request, 'gorynych_app/rec.html', context=new_context)
     return render(request, 'gorynych_app/index.html', context=context)
 

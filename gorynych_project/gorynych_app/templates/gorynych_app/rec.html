@@ -10,10 +10,26 @@
     <title>Рекорды</title>
 </head>
 <body>
-    <h1>Рекорды</h1>
-    {% for i in get_rec %}
-    <h2>{{ i }}</h2>
-    {% endfor %}
+    <h1>Рейтинг игроков</h1>
+    <div style="text-align: center;">
+        <table border="1" cellspacing="0" cellpadding="20" style="display: inline-block;">
+        <tr>
+            <th>Игрок</th>
+            <th>Рекорд</th>
+        </tr>
+        {% for i in get_rec %}
+            {% if i.0 == user %}
+        <tr>
+            <td><b>{{ i.0 }}</b></td>
+            <td><b>{{ i.1 }}</b></td>
+            {% else %}
+            <td>{{ i.0 }}</td>
+            <td>{{ i.1 }}</td>
+            {% endif %}
+        </tr>
+            {% endfor %}
+        </table>
+    </div>
 <p><a href="#" onclick="history.back();">Назад</a></p>
 </body>
 </html>

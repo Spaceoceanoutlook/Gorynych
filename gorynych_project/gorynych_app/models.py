@@ -14,21 +14,10 @@ class Word(models.Model):
         verbose_name_plural = 'Слова'
 
 
-class Record(models.Model):
-    record = models.IntegerField(verbose_name='Рекорд')
-    objects = models.Manager()
-
-    def __str__(self):
-        return f'{self.record}'
-
-    class Meta:
-        verbose_name = 'Рекорд'
-        verbose_name_plural = 'Рекорды'
-
-
 class UserGame(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     game = models.BinaryField()
+    record = models.IntegerField(default=0)
     objects = models.Manager()
 
     def __str__(self):

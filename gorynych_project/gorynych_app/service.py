@@ -1,4 +1,4 @@
-from .models import Word, Record
+from .models import Word, UserGame
 import random
 
 consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т"]
@@ -16,8 +16,8 @@ fourth_phrase = ["У Горыныча все головы на месте", "Г�
 
 def get_rec():
     """ Получает список рекордов из БД """
-    r = [i.record for i in Record.objects.all()]
-    r.sort(reverse=True)
+    r = [(i.user, i.record) for i in UserGame.objects.all()]
+    r.sort(key=lambda x: x[1], reverse=True)
     return r
 
 
@@ -140,11 +140,3 @@ class Words:
         set_first = self.comp_word_list
         all_word = set_first - set_final
         return list(all_word)
-
-    def save_rec(self):
-        """ Сохраняет новый рекорд из БД """
-        rec = get_rec()
-        if len(self.players_word_list) > rec[-1]:
-            r = Record.objects.filter(record=rec[-1])[0]
-            r.record = len(self.players_word_list)
-            r.save()
