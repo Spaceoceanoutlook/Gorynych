@@ -36,11 +36,11 @@
         <h6>
         {% for i in game.players_word_list %}
             {% if i in game.gorynych_user %}
-                <a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank" style="color: #138808">{{ i }}</a>
+                <a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #138808">{{ i }}</a>
             {% elif i in game.words_without_repeating_user %}
-                <a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank" style="color: #4285B4">{{ i }}</a>
+                <a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #4285B4">{{ i }}</a>
             {% else %}
-                <a href="https://rustxt.ru/dict/{{ i|title }}" target="_blank">{{ i }}</a>
+                <a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank">{{ i }}</a>
             {% endif %}
         {% endfor %}
         </h6>
