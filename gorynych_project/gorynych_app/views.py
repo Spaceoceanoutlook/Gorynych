@@ -38,7 +38,8 @@ def index(request):
                 game.number_user -= 1
             game.temp = 0
         elif len(game.players_word_list) >= 1:
-            if len(game.players_word_list[-1]) > 5 and len(game.players_word_list[-1]) == len(set(game.players_word_list[-1])):
+            if len(game.players_word_list[-1]) > 5 and len(game.players_word_list[-1]) == len(
+                    set(game.players_word_list[-1])):
                 # Когда уже было три головы и последнее слово длинное, которое нужно удалить
                 if game.number_user == 3 and game.temp == 1:
                     game.number_user -= 1
