@@ -14,7 +14,7 @@
         {{ i }}
     {% endfor %}
     </h3>
-    <p>Ваши слова({{ game.players_word_list|length }}):</p>
+    <p>Слова игрока({{ game.players_word_list|length }}):</p>
     {% for i in game.players_word_list %}
         {% if i in game.words_without_repeating_user and i in game.words_without_repeating_comp %}
             <b><a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #4285B4">{{ i }}</a></b>
@@ -29,7 +29,7 @@
         {% else %}
             <a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank">{{ i }}</a>
         {% endif %}
-        {% empty %} Вы не составили ни одного слова
+        {% empty %} Не составил ни одного слова
     {% endfor %}
     <p>Слова компьютера({{ game.final_comp_word_list|length }}):</p>
     {% for i in game.final_comp_word_list %}
@@ -48,9 +48,13 @@
         {% endif %}
         {% empty %} Компьютер не составил ни одного слова
     {% endfor %}
+
+    {% if request.user == user %}
     <h4>{{ game.who_won.0 }}</h4>
-    <form action="" method="post">{% csrf_token %}
-        <button type="submit" name="end">НОВАЯ ИГРА</button>
-    </form>
+    {% else %}
+    <h4>{{ user }} {{ game.who_won.1 }}</h4>
+    {% endif %}
+
+    <p><a href="#" onclick="history.back();">Назад</a></p>
 </body>
 </html>

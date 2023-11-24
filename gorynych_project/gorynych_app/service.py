@@ -16,7 +16,7 @@ fourth_phrase = ["У Горыныча все головы на месте", "Г�
 
 def get_rec():
     """ Получает список рекордов из БД """
-    r = [(i.user, i.record) for i in UserGame.objects.all()]
+    r = [(i.user, i.record, i.game_for_record) for i in UserGame.objects.all()]
     r.sort(key=lambda x: x[1], reverse=True)
     return r
 
@@ -129,10 +129,10 @@ class Words:
     def who_won(self):
         """ Определяет победителя """
         if len(self.players_word_list) < len(self.final_comp_word_list):
-            return 'Вы проиграли'
+            return 'Вы проиграли', 'проиграл(а)'
         if len(self.players_word_list) == len(self.final_comp_word_list):
             return 'Ничья'
-        return 'Вы победили!'
+        return 'Вы победили!', 'победил(а)'
 
     def all_gorynych_comp(self):
         """ Вовращает полный список слов-голов Горыныча """

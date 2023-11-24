@@ -16,8 +16,9 @@ class Word(models.Model):
 
 class UserGame(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    game = models.BinaryField()
+    game = models.BinaryField(null=True)
     record = models.IntegerField(default=0)
+    game_for_record = models.BinaryField(null=True)
     objects = models.Manager()
 
     def __str__(self):

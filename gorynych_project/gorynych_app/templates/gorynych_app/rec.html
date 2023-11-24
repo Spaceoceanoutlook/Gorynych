@@ -21,10 +21,10 @@
             {% if i.0 == user %}
         <tr>
             <td><b>{{ i.0 }}</b></td>
-            <td><b>{{ i.1 }}</b></td>
+            <td><b><a href="{% url 'get_record_html' user=i.0 %}">{{ i.1 }}</a></b></td>
             {% else %}
             <td>{{ i.0 }}</td>
-            <td>{{ i.1 }}</td>
+            <td><a href="{% url 'get_record_html' user=i.0 %}">{{ i.1 }}</a></td>
             {% endif %}
         </tr>
             {% endfor %}
