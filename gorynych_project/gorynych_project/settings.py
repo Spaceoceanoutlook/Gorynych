@@ -6,6 +6,8 @@ SECRET_KEY = 'django-insecure-b^*ycx-pdtul#tvzce6946#7@*l5zqxir7ng#dfnn679abatt3
 
 DEBUG = True
 
+# Для сайта pythonanywhere
+# ALLOWED_HOSTS = ['thegorynych.pythonanywhere.com']
 ALLOWED_HOSTS = []
 
 
@@ -86,6 +88,8 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
+# Для сервера на pythonanywhere
+STATIC_ROOT = '/home/thegorynych/static/'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -111,7 +111,6 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            print(user)
             messages.success(request, 'Успешная регистрация')
             UserGame.objects.create(game=pickle.dumps(Words()), user_id=User.objects.get(username=user).id)
             return redirect('index')

@@ -1,8 +1,8 @@
 from .models import Word, UserGame
 import random
 
-consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т"]
-vowel_letters = ["А", "Е", "И", "О", "Я", "У"]
+consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т", "У"]
+vowel_letters = ["А", "Е", "И", "О", "Я"]
 rare_letters = ["Ф", "Х", "Ц", "Ч", "Ж", "З", "Ю"]
 the_rarest = ["Й", "Щ", "Ь", "Ё", "Ы", "Э", "Ш"]
 first_phrase = ["Круто!", "Фантастика!", "Невероятно!", "Классное слово!", "Полегче!",
@@ -131,7 +131,7 @@ class Words:
         if len(self.players_word_list) < len(self.final_comp_word_list):
             return 'Вы проиграли', 'проиграл(а)'
         if len(self.players_word_list) == len(self.final_comp_word_list):
-            return 'Ничья'
+            return 'Ничья', 'Ничья'
         return 'Вы победили!', 'победил(а)'
 
     def all_gorynych_comp(self):
