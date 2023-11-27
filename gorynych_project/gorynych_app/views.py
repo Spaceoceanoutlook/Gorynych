@@ -73,19 +73,25 @@ def index(request):
             game.gorynych_comp.append(new_word)
             game.final_comp_word_list.add(new_word)
             count_new_words_for_comp -= 1
-        games.game = pickle.dumps(game)
-        games.save()
-        return render(request, 'gorynych_app/final.html', context=context)
-    if request.method == 'POST' and 'end' in request.POST:
-        # При нажатии НОВАЯ ИГРА
+        # Делаем копию состояния игры для фронта
+        game_2 = game
+        new_context = {'game_2': game_2}
         # Если рекорд, то сохраняем
         if len(game.players_word_list) > games.record:
             # Сохраняем число рекорд
             games.record = len(game.players_word_list)
             games.save()
-            # Также сохраняем детальное состояние игры
+            # Сериализуем и сохраняем детальное состояние игры в БД
             games.game_for_record = pickle.dumps(game)
             games.save()
+        # Создаем новую игру
+        games.game = pickle.dumps(Words())
+        games.save()
+        # games.game = pickle.dumps(game)
+        # games.save()
+        return render(request, 'gorynych_app/final.html', context=new_context)
+    if request.method == 'POST' and 'end' in request.POST:
+        # При нажатии НОВАЯ ИГРА
         # Создаем новую игру
         games.game = pickle.dumps(Words())
         games.save()
