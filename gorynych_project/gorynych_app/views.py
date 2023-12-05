@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from .forms import UserRegForm, UserLoginForm
-from .models import UserGame
+from .models import UserGame, Statictics
 from .service import Words, get_rec
 from django.contrib import messages
 import pickle
@@ -73,6 +73,7 @@ def index(request):
             game.gorynych_comp.append(new_word)
             game.final_comp_word_list.add(new_word)
             count_new_words_for_comp -= 1
+        game.update_statistics(request.user.id)
         # Делаем копию состояния игры для фронта
         game_2 = game
         new_context = {'game_2': game_2}
@@ -119,6 +120,7 @@ def register(request):
             login(request, user)
             messages.success(request, 'Успешная регистрация')
             UserGame.objects.create(game=pickle.dumps(Words()), user_id=User.objects.get(username=user).id)
+            Statictics.objects.create(user_id=User.objects.get(username=user).id)
             return redirect('index')
         else:
             messages.error(request, 'Что-то пошло не так')
@@ -152,3 +154,10 @@ def get_record_html(request, user):
     game = pickle.loads(games.game_for_record)
     context = {'game': game, 'user': games.user}
     return render(request, 'gorynych_app/game_detail.html', context=context)
+
+
+def statistics(request, user):
+    user = User.objects.get(username=user)
+    stat = Statictics.objects.filter(user=user)
+    context = {'stat': stat, 'user': user}
+    return render(request, 'gorynych_app/statistics.html', context=context)

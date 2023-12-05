@@ -1,4 +1,4 @@
-from .models import Word, UserGame
+from .models import Word, UserGame, Statictics
 import random
 
 consonant_letters = ["Б", "В", "Г", "Д", "К", "Л", "М", "Н", "П", "Р", "С", "Т", "У"]
@@ -140,3 +140,15 @@ class Words:
         set_first = self.comp_word_list
         all_word = set_first - set_final
         return list(all_word)
+
+    def update_statistics(self, user):
+        """ Обновляет количество побед, ничьих, поражений """
+        stat = Statictics.objects.get(user_id=user)
+        stat.number_of_games += 1
+        if len(self.players_word_list) < len(self.final_comp_word_list):
+            stat.defeat += 1
+        if len(self.players_word_list) == len(self.final_comp_word_list):
+            stat.dead_heat += 1
+        if len(self.players_word_list) > len(self.final_comp_word_list):
+            stat.victory += 1
+        stat.save()

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Статистика</title>
+    <link rel="icon" type="image/png" href="{% static 'img/gor1.png' %}">
+</head>
+<body>
+    <h1>Статистика игр</h1>
+    <div style="text-align: center;">
+        <table border="1" cellspacing="0" cellpadding="20" style="display: inline-block;">
+        <tr>
+            <th>Количество игр</th>
+            <th>Победы</th>
+            <th>Ничьи</th>
+            <th>Поражения</th>
+        </tr>
+            {% for i in stat %}
+            <th>{{i.number_of_games}}</th>
+            <th>{{i.victory}}</th>
+            <th>{{i.dead_heat}}</th>
+            <th>{{i.defeat}}</th>
+            {% endfor %}
+        </table>
+    </div>
+<p><a href="#" onclick="history.back();">Назад</a></p>
+</body>
+</html>
