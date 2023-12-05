@@ -16,19 +16,23 @@
     <div style="text-align: center;">
         <table border="1" cellspacing="0" cellpadding="20" style="display: inline-block;">
         <tr>
+            {% for i in stat %}
             <th>Количество игр</th>
-            <th>Победы</th>
-            <th>Ничьи</th>
-            <th>Поражения</th>
+            <th>{{i.number_of_games}}</th>
         </tr>
             <tr>
-                {% for i in stat %}
-                <th>{{i.number_of_games}}</th>
-                <th>{{i.victory}}</th>
-                <th>{{i.dead_heat}}</th>
-                <th>{{i.defeat}}</th>
+            <th>Победы</th>
+            <th>{{i.victory}}</th>
             </tr>
-            {% endfor %}
+            <tr>
+            <th>Ничьи</th>
+            <th>{{i.dead_heat}}</th>
+            </tr>
+            <tr>
+            <th>Поражения</th>
+            <th>{{i.defeat}}</th>
+            </tr>
+        {% endfor %}
         </table>
         <br>
         <h2>Рекорды</h2>
