@@ -43,3 +43,18 @@ class Statictics(models.Model):
     class Meta:
         verbose_name = 'Статистика'
         verbose_name_plural = 'Статистика'
+
+
+class Record(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    record_1 = models.IntegerField(verbose_name='Рекорд', default=0)
+    record_2 = models.IntegerField(verbose_name='Рекорд', default=0)
+    record_3 = models.IntegerField(verbose_name='Рекорд', default=0)
+    objects = models.Manager()
+
+    def __str__(self):
+        return f'{self.user}'
+
+    class Meta:
+        verbose_name = 'Рекорд'
+        verbose_name_plural = 'Рекорды'

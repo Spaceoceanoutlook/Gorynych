@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from .forms import UserRegForm, UserLoginForm
-from .models import UserGame, Statictics
+from .models import UserGame, Statictics, Record
 from .service import Words, get_rec
 from django.contrib import messages
 import pickle
@@ -74,10 +74,23 @@ def index(request):
             game.final_comp_word_list.add(new_word)
             count_new_words_for_comp -= 1
         game.update_statistics(request.user.id)
+
+        # Обновляем топ-3 рекордов
+        rec = Record.objects.get(user_id=request.user.id)
+        list_rec = [rec.record_1, rec.record_2, rec.record_3]
+        list_rec.sort(reverse=True)
+        rec.record_1 = list_rec[0]
+        rec.record_2 = list_rec[1]
+        rec.record_3 = list_rec[2]
+        rec.save()
+        if len(game.players_word_list) > list_rec[2]:
+            rec.record_3 = len(game.players_word_list)
+            rec.save()
+
         # Делаем копию состояния игры для фронта
         game_2 = game
         new_context = {'game_2': game_2}
-        # Если рекорд, то сохраняем
+        # Если самый большой рекорд, то сохраняем
         if len(game.players_word_list) > games.record:
             # Сохраняем число рекорд
             games.record = len(game.players_word_list)
@@ -121,6 +134,7 @@ def register(request):
             messages.success(request, 'Успешная регистрация')
             UserGame.objects.create(game=pickle.dumps(Words()), user_id=User.objects.get(username=user).id)
             Statictics.objects.create(user_id=User.objects.get(username=user).id)
+            Record.objects.create(user_id=User.objects.get(username=user).id)
             return redirect('index')
         else:
             messages.error(request, 'Что-то пошло не так')
@@ -159,5 +173,8 @@ def get_record_html(request, user):
 def statistics(request, user):
     user = User.objects.get(username=user)
     stat = Statictics.objects.filter(user=user)
-    context = {'stat': stat, 'user': user}
+    rec = Record.objects.get(user_id=user.id)
+    list_rec = [rec.record_1, rec.record_2, rec.record_3]
+    list_rec.sort(reverse=True)
+    context = {'stat': stat, 'user': user, 'list_rec': list_rec}
     return render(request, 'gorynych_app/statistics.html', context=context)
