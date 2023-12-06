@@ -11,43 +11,43 @@
     <link rel="icon" type="image/png" href="{% static 'img/gor1.png' %}">
 </head>
 <body>
-    <h1>"{{ user }}"</h1>
+    <h1>{{ user }}</h1>
     <h2>Статистика игр</h2>
     <div style="text-align: center;">
-        <table border="1" cellspacing="0" cellpadding="20" style="display: inline-block;">
+        <table width="330" border="1" cellspacing="0" cellpadding="7" style="display: inline-block;">
         <tr>
             {% for i in stat %}
-            <th>Количество игр</th>
-            <th>{{i.number_of_games}}</th>
+            <th width="270">Количество игр</th>
+            <th width="60">{{i.number_of_games}}</th>
         </tr>
             <tr>
-            <th>Победы</th>
-            <th>{{i.victory}}</th>
+            <th width="270">Победы</th>
+            <th width="60">{{i.victory}}</th>
             </tr>
             <tr>
-            <th>Ничьи</th>
-            <th>{{i.dead_heat}}</th>
+            <th width="270">Ничьи</th>
+            <th width="60">{{i.dead_heat}}</th>
             </tr>
             <tr>
-            <th>Поражения</th>
-            <th>{{i.defeat}}</th>
+            <th width="270">Поражения</th>
+            <th width="60">{{i.defeat}}</th>
             </tr>
         {% endfor %}
         </table>
         <br>
         <h2>Рекорды</h2>
-        <table border="1" cellspacing="0" cellpadding="20" style="display: inline-block;">
+        <table width="330" border="1" cellspacing="0" cellpadding="7" style="display: inline-block;">
             <tr>
-                <th>Золотой</th>
-                <th>{{ list_rec.0 }}</th>
+                <th width="270">Золотой</th>
+                <th width="60">{{ list_rec.0 }}</th>
             </tr>
             <tr>
-                <th>Серебряный</th>
-                <th>{{ list_rec.1 }}</th>
+                <th width="270">Серебряный</th>
+                <th width="60">{{ list_rec.1 }}</th>
             </tr>
             <tr>
-                <th>Бронзовый</th>
-                <th>{{ list_rec.2 }}</th>
+                <th width="270">Бронзовый</th>
+                <th width="60">{{ list_rec.2 }}</th>
             </tr>
         </table>
     </div>

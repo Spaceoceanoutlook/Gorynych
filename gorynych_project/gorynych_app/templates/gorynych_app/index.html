@@ -21,7 +21,7 @@
     <link rel="icon" type="image/png" href="{% static 'img/gor1.png' %}">
 </head>
 <body>
-    <img src="static/img/gor{{ game.number_user }}.png" width="200">
+    <img src="static/img/gor{{ game.number_user }}.png" width="150">
     <h3>
     {% for i in game.deck %}
         {{ i }}
@@ -30,7 +30,7 @@
     <form action="" method="post">{% csrf_token %}
         <input type="text" name="word" autocomplete="off" autofocus>
         {% if res %}
-            <h6>{{ res }}</h6>
+            <h6><u>{{ res }}</u></h6>
         {% endif %}
         <h6>
         {% for i in game.players_word_list %}
@@ -43,13 +43,13 @@
             {% endif %}
         {% endfor %}
         </h6>
-        <button type="submit" name="add">ДОБАВИТЬ СЛОВО</button>
-        <button type="submit" name="cancel">УБРАТЬ СЛОВО</button>
-        <button type="submit" name="count">ПОСЧИТАТЬ СЛОВА</button>
-        <button type="submit" name="check" onclick="return confirmAction2()">ЗАКОНЧИТЬ ИГРУ</button>
-        <button type="submit" name="end" onclick="return confirmAction1()">НОВАЯ ИГРА</button>
-        <button type="submit" name="rec">РЕЙТИНГ</button>
-        <button type="submit" name="doc">ПРАВИЛА ИГРЫ</button>
+        <button type="submit" name="add">ДОБАВИТЬ СЛОВО</button><br>
+        <button type="submit" name="cancel">УБРАТЬ СЛОВО</button><br>
+        <button type="submit" name="count">ПОСЧИТАТЬ СЛОВА</button><br>
+        <button type="submit" name="check" onclick="return confirmAction2()">ЗАКОНЧИТЬ ИГРУ</button><br>
+        <button type="submit" name="end" onclick="return confirmAction1()">НОВАЯ ИГРА</button><br>
+        <button type="submit" name="rec">РЕЙТИНГ</button><br>
+        <button type="submit" name="doc">ПРАВИЛА ИГРЫ</button><br>
         <button type="submit" name="logout">ВЫЙТИ</button>
     </form>
 </body>
