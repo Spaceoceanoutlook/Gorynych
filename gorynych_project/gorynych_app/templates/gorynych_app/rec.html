@@ -13,10 +13,10 @@
 <body>
     <h1>Рейтинг игроков</h1>
     <div style="text-align: center;">
-        <table border="1" cellspacing="0" cellpadding="20" style="display: inline-block;">
+        <table width="330" border="1" cellspacing="0" cellpadding="7" style="display: inline-block;">
         <tr>
-            <th>Игрок</th>
-            <th>Рекорд</th>
+            <th width="270">Игрок</th>
+            <th width="60">Рекорд</th>
         </tr>
         {% for i in get_rec %}
             {% if i.0 == user %}
