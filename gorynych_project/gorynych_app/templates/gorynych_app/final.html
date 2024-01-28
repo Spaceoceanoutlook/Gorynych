@@ -17,11 +17,11 @@
     </h3>
     <p>Ваши слова({{ game_2.players_word_list|length }}):</p>
     {% for i in game_2.players_word_list %}
-        {% if i in game_2.words_without_repeating_user and i in game.words_without_repeating_comp %}
+        {% if i in game_2.words_without_repeating_user and i in game_2.words_without_repeating_comp %}
             <b><a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #4285B4">{{ i }}</a></b>
         {% elif i in game_2.words_without_repeating_user %}
             <a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #4285B4">{{ i }}</a>
-        {% elif i in game_2.gorynych_user and i in game.gorynych_comp %}
+        {% elif i in game_2.gorynych_user and i in game_2.gorynych_comp %}
             <b><a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #138808">{{ i }}</a></b>
         {% elif i in game_2.gorynych_user %}
             <a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #138808">{{ i }}</a>
@@ -34,11 +34,11 @@
     {% endfor %}
     <p>Слова компьютера({{ game_2.final_comp_word_list|length }}):</p>
     {% for i in game_2.final_comp_word_list %}
-        {% if i in game_2.words_without_repeating_user and i in game.words_without_repeating_comp %}
+        {% if i in game_2.words_without_repeating_user and i in game_2.words_without_repeating_comp %}
             <b><a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #4285B4">{{ i }}</a></b>
         {% elif i in game_2.words_without_repeating_comp %}
             <a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #4285B4">{{ i }}</a>
-        {% elif i in game_2.gorynych_comp and i in game.gorynych_user %}
+        {% elif i in game_2.gorynych_comp and i in game_2.gorynych_user %}
             <b><a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #138808">{{ i }}</a></b>
         {% elif i in game_2.gorynych_comp %}
             <a href="https://gramota.ru/poisk?query={{ i|title }}&mode=slovari&dicts[]=42" target="_blank" style="color: #138808">{{ i }}</a>
